@@ -44,13 +44,13 @@ export class EntityService {
     return this.queries[this.entityName];
   }
 
-  promisedQueries(em) {
-    return this.queries.one.map(query => em.executeQuery(query));
+  promisedQueries(em, params) {
+    return this.queries.oneBy(params).map(query => em.executeQuery(query));
   }
   
   loadExisting(id) {
     return this.entityManager
-      .then(em => Promise.all(this.promisedQueries(em)))
+      .then(em => Promise.all(this.promisedQueries(em, {id: id})))
       .then(values => {
         var queryResult = values[0];
         return {

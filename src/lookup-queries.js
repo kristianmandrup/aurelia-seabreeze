@@ -1,3 +1,5 @@
+import breeze from 'breeze';
+
 const customersQuery = new breeze.EntityQuery
   .from('Customers')
   .select('CustomerID, CompanyName')

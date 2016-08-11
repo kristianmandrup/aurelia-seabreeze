@@ -1,6 +1,6 @@
 {
   "name": "aurelia-seabreeze",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Aurelia breeze kickstarter",
   "main": "src/index.js",
   "scripts": {

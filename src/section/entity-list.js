@@ -6,7 +6,7 @@ import {ListViewModel} from '../list-view-model';
 // @inject(AppRouter, EntityService)
 // @singleton()
 export class EntityList extends ListViewModel {
-  constructor(name, {router, service}) {
+  constructor(name, router, service) {
     super(name, router, service)
   }
 }

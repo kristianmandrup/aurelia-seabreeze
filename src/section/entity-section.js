@@ -14,11 +14,15 @@ export class EntitySection {
     this.entityName = entityName;
   }
 
-  configureRouter(config, router) {
-    config.map([
+  get routeMap() {
+    return [
       { route: '',    moduleId: `./${this.entityName}-list`, nav: false, title: '' },
       { route: ':id', moduleId: `./${this.entityName}`,      nav: false, title: '' },
-    ]);
+    ]    
+  }
+
+  configureRouter(config, router) {
+    config.map(this.routeMap);
   }
 }
 
