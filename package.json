@@ -1,7 +1,7 @@
 {
   "name": "aurelia-seabreeze",
   "version": "1.0.0",
-  "description": "Aurelia breeze kickstarters",
+  "description": "Aurelia breeze kickstarter",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

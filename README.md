@@ -24,7 +24,7 @@ The section is the entry point for the entity and contains a child-router
 ```js
 class OrderSection extends EntitySection {
   constructor() {
-    super('order);
+    super('order');
   }
 }
 ```
@@ -89,7 +89,7 @@ export default [
 ]
 ```
 
-And your Lookups aggregator
+For your `Lookups` aggregator
 
 ```js
 import lookupQueries from './lookup-queries';
@@ -117,8 +117,9 @@ class Order extends Entity {
 
 And you are good to go!!
 
-PS: This is experimental! Let me know how it works out for you ;)
+PS: This is still very experimental! Let me know how it works out for you ;)
 
 ## Notes
 
-The included files: `queries.js` and `section/service-queries.js` are simply there to demonstrate the type of formats you should use.
+The included src files: `lookup-queries.js` and `section/service-queries.js` are simply there to demonstrate 
+how these queries should be defined and exported for use.
