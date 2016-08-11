@@ -12,16 +12,46 @@ to make the code more abstract/general and thus easily reusable for different en
 
 You will need to create the following:
 
+- EntityManager factory method
 - Section
 - Service (with service queries)
 - Entity lookups (with lookup queries)
 - Entity VM
+
+### Create an EntityManager factory
+
+breeze settings for `EntityManager`
+
+```js
+// settings.js
+
+export default {
+  serviceName: "http://sampleservice.breezejs.com/api/northwind",
+  pageSize: 100,
+};
+```
+
+The EntityManager factory method
+
+```js
+// createEntityManager.js
+
+import settings from './settings';
+
+export createEntityManager() {
+  return new EntityManager(settings).entityManager;
+} 
+```
 
 ### Create a section 
 
 The section is the entry point for the entity and contains a child-router
 
 ```js
+// orders/order-sections
+
+import { EntitySection } from 'aurelia-seabreeze'; 
+
 class OrderSection extends EntitySection {
   constructor() {
     super('order');
@@ -50,7 +80,7 @@ const entityDetailsById =new breeze.EntityQuery().from('OrderDetails').where('Or
 export default {
   order: {
     list: pagedList,
-    id: [entityById, entityDetailsById]
+    one: [entityById, entityDetailsById]
   }
 } 
 ```
@@ -60,11 +90,20 @@ Create an entity service: `OrderService`
 ```js
 import { EntityService } from 'aurelia-seabreeze';
 import { serviceQueries } from './service-queries';
+import { createEntityManager } from './entity-manager'
 
 class OrderService extends EntityService {
-   constructor() {
-     super('order', serviceQueries, orderQueries);
-   } 
+  constructor() {
+    super('order');
+  } 
+
+  get queries() {
+    return serviceQueries;
+  }
+
+  get entityManager() {
+    return createEntityManager();
+  }
 }
 ```
 
@@ -92,11 +131,18 @@ export default [
 For your `Lookups` aggregator
 
 ```js
+// lookups.js
+
 import lookupQueries from './lookup-queries';
 import { Lookups } from 'aurelia-seabreeze';
+
 export class EntityLookups extends Lookups { 
-  constructor() {
-    this.lookupQueries = lookupQueries;
+  get entityManager() {
+    return createEntityManager();
+  }
+
+  get lookupQueries() {
+    return lookupQueries;
   }
 }
 ```

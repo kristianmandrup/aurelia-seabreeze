@@ -13,6 +13,6 @@ const entityDetailsById =new breeze.EntityQuery().from('OrderDetails').where('Or
 export default {
   order: {
     list: pagedList,
-    id: [entityById, entityDetailsById]
+    one: [entityById, entityDetailsById]
   }
 } 

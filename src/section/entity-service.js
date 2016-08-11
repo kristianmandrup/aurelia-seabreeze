@@ -1,18 +1,19 @@
-import breeze from 'breeze';
-import settings from '../settings';
-import {createEntityManager} from '../entity-manager-factory';
-import queries from './service-queries';
+// import {createEntityManager} from '../entity-manager-factory';
+// import queries from './service-queries';
 import capitalize from 'lodash/capitalize';
 
 export class EntityService {
-  constructor(entityName, queries, {pageCount, pageSize}) {
+  defaultPageSize = 20;
+
+  constructor(entityName, {pageCount, pageSize}) {
     this.entityName = entityName;
     this.pageCount = pageCount; 
     this.pageSize = pageSize || this.defaultPageSize;
   }
 
-  get defaultPageSize() {
-    return 20;
+  get entityManager() {
+    throw "entityManager() must return a breeze EntityManager";
+    // return createEntityManager(settings);
   }
 
   get calcPageCount(queryResult) {
@@ -20,7 +21,7 @@ export class EntityService {
   }
 
   getPage(pageIndex) {
-    return createEntityManager()
+    return this.entityManager
       .then(em => em.executeQuery(this.queries.list))
       .then(queryResult => {
         return {
@@ -35,15 +36,20 @@ export class EntityService {
   }
 
   get queries() {
-    return queries[this.entityName];
+    throw "queries() must return the service queries for the entity";
+    // return queries;
+  }
+
+  get entityQueries() {
+    return this.queries[this.entityName];
   }
 
   promisedQueries(em) {
-    return queries.byId.map(query => em.executeQuery(query));
+    return this.queries.one.map(query => em.executeQuery(query));
   }
   
   loadExisting(id) {
-    return createEntityManager()
+    return this.entityManager
       .then(em => Promise.all(this.promisedQueries(em)))
       .then(values => {
         var queryResult = values[0];
@@ -55,7 +61,7 @@ export class EntityService {
   }
 
   createNew() {
-    return createEntityManager()
+    return this.entityManager
       .then(em => {
         return {
           entity: em.createEntity(this.resourceName),

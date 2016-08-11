@@ -5,15 +5,15 @@ export class ListViewModel {
   route;
   service;
   entities = [];
-  pageSize = settings.pageSize;
   pageCount = 0;
   pageIndex = 0;
   isLoading = false;
 
-  constructor(route, router, service) {
+  constructor(route, router, service, settings = {}) {
     this.route = route;
     this.router = router;
     this.service = service;
+    this.pageSize = settings.pageSize || 100;
   }
 
   activate() {

@@ -6,10 +6,20 @@ import {createEntityManager} from './entity-manager-factory';
 */
 export class Lookups { 
   constructor() {
-    // this.lookupQueries = lookupQueries;
     this.queries = this.findQueries();
     this.queryNames = this.findQueryNames();
   }
+
+  get entityManager() {
+    throw "entityManager() must return a breeze EntityManager";
+    // return createEntityManager(settings);
+  }
+
+  get lookupQueries() {
+    throw "lookupQueries() must return the list of lookup query objects";
+    // return lookupQueries;
+  } 
+
 
   get promisedQueries(em) {
     return this.queries.map(query => em.executeQuery(query));  
@@ -24,7 +34,7 @@ export class Lookups {
   }
 
   load() {
-    return createEntityManager()
+    return this.entityManager
       .then(em => Promise.all(this.promisedQueries(em)))
       .then(queryResults => {
         for (let res, index of queryResults) {
