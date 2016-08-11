@@ -1,11 +1,11 @@
-import breeze from 'breeze';
+import query from './query';
 
-const customersQuery = new breeze.EntityQuery
+const customersQuery = query()
   .from('Customers')
   .select('CustomerID, CompanyName')
   .orderBy('CompanyName');
 
-const productsQuery = new breeze.EntityQuery
+const productsQuery = query()
   .from('Products')
   .select('ProductID, ProductName, UnitPrice')
   .orderBy('ProductName');

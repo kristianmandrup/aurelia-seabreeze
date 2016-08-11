@@ -1,6 +1,6 @@
-import breeze from 'breeze';
+import query from '../query';
 
-const pagedList = new breeze.EntityQuery()
+const pagedList = query()
       .from('Orders')
       .select('OrderID, Customer.CompanyName, Employee.FirstName, Employee.LastName, OrderDate, Freight')
       .orderByDesc('OrderDate')
@@ -10,8 +10,8 @@ const pagedList = new breeze.EntityQuery()
 
 function queriesById({id}) {
   return [
-    new breeze.EntityQuery().from('Orders').where('OrderID', '==', id),
-    new breeze.EntityQuery().from('OrderDetails').where('OrderID', '==', id)
+    query().from('Orders').where('OrderID', '==', id),
+    query().from('OrderDetails').where('OrderID', '==', id)
   ]
 }
  
