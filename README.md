@@ -1,5 +1,7 @@
 # Aurelia Seabreeze
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/kristianmandrup/aurelia-seabreeze.svg)](https://greenkeeper.io/)
+
 A small library to quickly get rocking with [aurelia-breeze](https://github.com/jdanyow/aurelia-breeze).
 Based on the sample northwind app: [aurelia-breeze-northwind](https://github.com/jdanyow/aurelia-breeze-northwind) and tried
 to make the code more abstract/general and thus easily reusable for different entities.
